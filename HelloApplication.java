@@ -13,30 +13,34 @@ import javafx.stage.Stage;
 public class HelloApplication extends Application {
 
     public void start(Stage primaryStage) {
-        Label loanAmountLabel = new Label("Loan Amount: ");  //Labels for amount
-        TextField loanAmountField = new TextField();
         Label annualInterestRateLabel = new Label("Annual Interest Rate: "); //Field for amount
         TextField annualInterestRateField = new TextField();
         Label numberOfYearsLabel = new Label("Number of Years: "); //Label for years
         TextField numberOfYearsField = new TextField();
-        Button calculateButton = new Button("Calculate Payment"); //Button
+        Label loanAmountLabel = new Label("Loan Amount: ");  //Labels for amount
+        TextField loanAmountField = new TextField();
         Label monthlyPaymentLabel = new Label("Monthly Payment: "); //Label for monthyl payment
+        TextField monthlyPaymentField = new TextField();
         Label totalPaymentLabel = new Label("Total Payment: "); //label for total payment
+        TextField totalPaymentField = new TextField();
+        Button calculateButton = new Button("Calculate"); //Button
 
         GridPane grid = new GridPane(); //Gridplane layout
-        grid.setPadding(new Insets(15, 15, 15, 15));
-        grid.setHgap(15);
-        grid.setVgap(15);
+        grid.setPadding(new Insets(10, 10, 10, 10));
+        grid.setHgap(10);
+        grid.setVgap(10);
         grid.setAlignment(Pos.CENTER);
-        grid.add(loanAmountLabel, 0, 0); //text and placement of label and field
-        grid.add(loanAmountField, 2, 0);
-        grid.add(annualInterestRateLabel, 0, 1); //text and placement
-        grid.add(annualInterestRateField, 2, 1);
-        grid.add(numberOfYearsLabel, 0, 2); //text and placement
-        grid.add(numberOfYearsField, 2, 2);
-        grid.add(calculateButton, 2, 3); // button placement
-        grid.add(monthlyPaymentLabel, 1, 4); //labels
-        grid.add(totalPaymentLabel, 1, 5);
+        grid.add(annualInterestRateLabel, 0, 0); //text and placement of label and field
+        grid.add(annualInterestRateField, 1, 0);
+        grid.add(numberOfYearsLabel, 0, 1); //text and placement
+        grid.add(numberOfYearsField, 1, 1);
+        grid.add(loanAmountLabel, 0, 2); //text and placement
+        grid.add(loanAmountField, 1, 2);
+        grid.add(monthlyPaymentLabel, 0, 3); //labels
+        grid.add(monthlyPaymentField, 1, 3);
+        grid.add(totalPaymentLabel, 0, 4);
+        grid.add(totalPaymentField, 1, 4);
+        grid.add(calculateButton, 1, 5); // button placement
 
         calculateButton.setOnAction(e -> { // button paramters and function
             try {
@@ -48,16 +52,16 @@ public class HelloApplication extends Application {
                 double monthlyPayment = loanAmount * monthlyInterestRate / (1 - Math.pow(1 + monthlyInterestRate, -numberOfPayments));
                 double totalPayment = monthlyPayment * numberOfPayments; //total payment calc
 
-                monthlyPaymentLabel.setText("Monthly Payment: $" + String.format("%.2f", monthlyPayment)); //output monthyl payment calculated in float
-                totalPaymentLabel.setText("Total Payment: $" + String.format("%.2f", totalPayment)); //output montly payment total in float
+                monthlyPaymentField.setText(String.format("%.2f", monthlyPayment)); //output monthyl payment calculated in float
+                totalPaymentField.setText(String.format("%.2f", totalPayment)); //output montly payment total in float
             } catch (NumberFormatException ex) { //if user enters invalid characters
-                monthlyPaymentLabel.setText("Invalid Input!");
-                totalPaymentLabel.setText("Invalid Input!");
+                monthlyPaymentField.setText("Invalid Input!");
+                totalPaymentField.setText("Invalid Input!");
             }
         });
 
-        Scene scene = new Scene(grid, 500, 500); //Set scene parameters
-        primaryStage.setTitle("Loan Calculator"); //title
+        Scene scene = new Scene(grid, 400, 300); //Set scene parameters
+        primaryStage.setTitle("LoanCalculator"); //title
         primaryStage.setScene(scene);
         primaryStage.show();
     }
